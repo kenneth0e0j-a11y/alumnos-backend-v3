@@ -10,7 +10,9 @@ const app = require('./app');
     }
     await connectDB(uri);
     const port = process.env.PORT || 4000;
-    app.listen(port, () => console.log(`🚀 Server escuchando en http://localhost:${port}`));
+    app.listen(port, () => {
+      console.log(`🚀 Server escuchando en el puerto ${port}`);
+    });
   } catch (err) {
     console.error('❌ No se pudo iniciar:', err);
     process.exit(1);
