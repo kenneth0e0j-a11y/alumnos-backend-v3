@@ -1,7 +1,7 @@
 # 1. Usa la imagen "completa" de Node.js 18
 FROM node:18
 
-# 2. Instala SOLO las dependencias de sistema (SIN chromium)
+# 2. Instala SOLO las dependencias de sistema (CON EL NOMBRE CORREGIDO)
 RUN apt-get update && apt-get install -y \
     libnss3 \
     libatk1.0-0 \
@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libgbm1 \
     libxkbcommon0 \
-    pango \
+    libpango-1.0-0 \ # <-- AQUÍ ESTÁ EL CAMBIO
     libcairo2 \
     libasound2 \
   && rm -rf /var/lib/apt/lists/*
