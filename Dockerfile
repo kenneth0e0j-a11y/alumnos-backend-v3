@@ -1,10 +1,8 @@
-# 1. Usamos una imagen de Node.js
+# 1. Usa la imagen "completa" de Node.js 18
 FROM node:18
 
-# 2. Instalamos las dependencias de sistema, incluyendo chromium
-# (Estas son necesarias para que puppeteer-core funcione)
+# 2. Instala SOLO las dependencias de sistema (SIN chromium)
 RUN apt-get update && apt-get install -y \
-    chromium \
     libnss3 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
@@ -23,22 +21,17 @@ RUN apt-get update && apt-get install -y \
     libasound2 \
   && rm -rf /var/lib/apt/lists/*
 
-# 3. Le decimos a Puppeteer dónde encontrar el navegador
-ENV PUPPETEER_EXECUTABLE_PATH="/usr/bin/chromium"
+# 3. Puppeteer ahora usará el navegador que se instala con 'npm install'
+# Así que NO necesitamos la variable 'PUPPETEER_EXECUTABLE_PATH'
 
-# 4. Preparamos el directorio de la app
+# 4. Prepara la app
 WORKDIR /app
-
-# 5. Copiamos package.json e instalamos dependencias
 COPY package*.json ./
+# Esta instalación AHORA SÍ descargará el navegador de puppeteer
 RUN npm install
 
-# 6. Copiamos el resto del código
 COPY . .
 
-# 7. Exponemos el puerto que Render necesita
-# (Asumiendo que tu server.js usa 'process.env.PORT')
+# 5. Expone el puerto y corre el servidor
 EXPOSE 10000
-
-# 8. Corremos el servidor
 CMD ["node", "src/server.js"]

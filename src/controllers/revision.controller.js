@@ -1,7 +1,6 @@
 const Revision = require('../models/revision.model');
 const { getDriveFileStream ,uploadBufferToDrive, deleteDriveFile } = require('../utils/drive');
-const puppeteer = require('puppeteer-core'); // <-- CAMBIO 1: Se usa 'puppeteer-core'
-const chromium = require('chromium'); // <-- CAMBIO 2: Se importa 'chromium'
+const puppeteer = require('puppeteer'); // <-- CAMBIO 1: Se usa 'puppeteer-core'
 
 exports.createRevision = async (req, res, next) => {
   try {
@@ -236,7 +235,6 @@ exports.generarRevisionPDF = async (req, res, next) => {
     browser = await puppeteer.launch({ 
       headless: true, 
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
-      executablePath: chromium.path // <-- Esta es la línea clave
     });
     
     const page = await browser.newPage();
