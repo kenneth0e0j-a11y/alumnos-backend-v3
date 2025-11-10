@@ -1,5 +1,5 @@
 # 1. Usamos una imagen de Node.js
-FROM node:18-slim
+FROM node:18
 
 # 2. Instalamos las dependencias de sistema, incluyendo chromium
 # (Estas son necesarias para que puppeteer-core funcione)
